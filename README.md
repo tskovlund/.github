@@ -10,3 +10,7 @@ Shared CI workflows, conventions, and community health files for
 - **[CONVENTIONS.md](CONVENTIONS.md)** — de-personalized code standards for
   contributors
 - **[profile/README.md](profile/README.md)** — GitHub profile page
+
+## Author
+
+Thomas Skovlund Hansen — [thomas@skovlund.dev](mailto:thomas@skovlund.dev)
