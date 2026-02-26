@@ -17,8 +17,3 @@ Follow the code standards in [CONVENTIONS.md](CONVENTIONS.md).
 CONVENTIONS.md is a de-personalized copy of the canonical standards manifest at
 `nix-config-personal/files/standards.md`. When standards change, update the
 canonical source first, then sync CONVENTIONS.md here.
-
-## Git workflow
-
-- **Conventional commits** — `feat:`, `fix:`, `docs:`, `chore:`
-- **Direct to main** — this repo is small and changes are low-risk
