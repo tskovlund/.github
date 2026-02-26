@@ -3,7 +3,7 @@
 Shared CI workflows, conventions, and community health files for tskovlund
 repositories.
 
-Follow the code standards in `~/.claude/standards.md`.
+Follow the code standards in [CONVENTIONS.md](CONVENTIONS.md).
 
 ## What this repo provides
 
