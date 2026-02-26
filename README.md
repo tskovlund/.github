@@ -9,6 +9,7 @@ Shared CI workflows, conventions, and community health files for
   CodeQL. Copy-paste caller examples included
 - **[CONVENTIONS.md](CONVENTIONS.md)** — de-personalized code standards for
   contributors
+- **[Templates](templates/)** — starter files for new repos (README, CONTRIBUTING)
 - **[profile/README.md](profile/README.md)** — GitHub profile page
 
 ## Author
