@@ -1,7 +1,9 @@
 # Code Conventions
 
-Shared conventions for all tskovlund repositories. Each repo includes the
-relevant subset in its own AGENTS.md / CLAUDE.md / CONTRIBUTING.md.
+Shared conventions for all tskovlund repositories. This file in
+[`tskovlund/.github`](https://github.com/tskovlund/.github) is the canonical
+source of truth. Each repo keeps a copy — update here first, then propagate to
+all repos.
 
 ## Code Quality
 
