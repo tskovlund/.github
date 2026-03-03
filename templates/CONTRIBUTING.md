@@ -46,3 +46,20 @@ All contributions go through pull requests.
 5. CI must pass
 6. A maintainer will review your PR — address any feedback
 7. The maintainer merges once approved
+
+### Prompt request PRs
+
+We welcome **prompt request PRs** — pull requests that contain a well-described
+specification instead of code. These are designed to be implemented by AI agents.
+
+A prompt request PR should include:
+
+- **Clear problem statement** — what should change and why
+- **Acceptance criteria** — specific, testable outcomes
+- **Constraints** — any boundaries on the solution
+- **Examples** — input/output examples or before/after descriptions where helpful
+
+<!-- Add a label name appropriate for your repo, e.g. `prompt-request` -->
+Label prompt request PRs with `prompt-request`. A maintainer or AI agent will
+pick them up, implement the changes, and push commits to the PR branch. The
+normal review process applies after implementation.
