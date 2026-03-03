@@ -145,7 +145,7 @@ all repos.
 - **Prettier** for formatting — with `eslint-config-prettier` to avoid
   conflicts
 
-## Python-Specific
+## Python
 
 - **src layout** — all package code under `src/<package>/`
 - **Pyright strict mode** — all function signatures fully typed
