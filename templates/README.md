@@ -27,7 +27,7 @@
 
 ## Author
 
-Thomas Skovlund Hansen — [thomas@skovlund.dev](mailto:thomas@skovlund.dev)
+Thomas Skovlund Hansen — [skovlund.dev](https://skovlund.dev) · [thomas@skovlund.dev](mailto:thomas@skovlund.dev)
 
 <!-- For licensed repos, add: -->
 <!-- ## License -->
