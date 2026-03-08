@@ -4,6 +4,8 @@ group:
         dest: .githooks/commit-msg
     repos: |
       tskovlund/nix-config
+      tskovlund/nix-config-personal
+      tskovlund/eliza-config
       tskovlund/cambr
       tskovlund/mcp-score
       tskovlund/skovlund.dev

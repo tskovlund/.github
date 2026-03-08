@@ -31,6 +31,10 @@ jobs:
         include:
           - repo: tskovlund/nix-config
             langs: ""
+          - repo: tskovlund/nix-config-personal
+            langs: ""
+          - repo: tskovlund/eliza-config
+            langs: ""
           - repo: tskovlund/cambr
             langs: python
           - repo: tskovlund/mcp-score
