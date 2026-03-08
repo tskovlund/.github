@@ -96,7 +96,9 @@ files in `conventions/`, not this file directly.
 
 ### Test Design
 
-- **Naming:** `test_<action>_<expected_outcome>`
+- **Naming:** `test` + `<action>` + `<expected outcome>`, cased per language
+  convention (e.g., `test_action_expected_outcome` in Python,
+  `testActionExpectedOutcome` in Lean/Kotlin)
 - **Structure:** Arrange / Act / Assert comments in every test
 - **Lean:** every test must earn its place. No trivial tests, no tests of
   library/built-in functionality
@@ -173,16 +175,7 @@ files in `conventions/`, not this file directly.
   of these conventions in its own docs. Redundancy across repos is intentional
   so that every contributor picks them up
 
-## TypeScript / JavaScript
-
-- **Strict typescript-eslint** — `tseslint.configs.strict` as baseline
-- **Explicit return types** — `explicit-function-return-type` and
-  `explicit-module-boundary-types` on all `.ts` files
-- **Naming convention** — enforced via `@typescript-eslint/naming-convention`:
-  `camelCase` variables/functions, `PascalCase` types, `UPPER_CASE` constants
-- **Import sorting** — `@ianvs/prettier-plugin-sort-imports` in Prettier
-- **Prettier** for formatting — with `eslint-config-prettier` to avoid
-  conflicts
+<!-- Language-specific conventions are appended per-repo by the sync workflow -->
 
 ## Lean 4
 
@@ -205,3 +198,14 @@ files in `conventions/`, not this file directly.
 - **Pyright strict mode** — all function signatures fully typed
 - **Ruff** for linting and formatting (line length 88)
 - **`__all__` in every module** — explicitly declare the public API
+
+## TypeScript / JavaScript
+
+- **Strict typescript-eslint** — `tseslint.configs.strict` as baseline
+- **Explicit return types** — `explicit-function-return-type` and
+  `explicit-module-boundary-types` on all `.ts` files
+- **Naming convention** — enforced via `@typescript-eslint/naming-convention`:
+  `camelCase` variables/functions, `PascalCase` types, `UPPER_CASE` constants
+- **Import sorting** — `@ianvs/prettier-plugin-sort-imports` in Prettier
+- **Prettier** for formatting — with `eslint-config-prettier` to avoid
+  conflicts
