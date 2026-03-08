@@ -11,6 +11,28 @@ permissions:
   contents: read
 
 jobs:
+  assemble-root:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          token: ${{ secrets.SYNC_PAT }}
+
+      - name: Assemble root CONVENTIONS.md
+        run: bash scripts/assemble-conventions.sh
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CONVENTIONS.md
+          git diff --cached --quiet && echo "CONVENTIONS.md already up to date" && exit 0
+          git commit -m "chore: assemble root CONVENTIONS.md from modules"
+          git push
+
   sync-hooks:
     runs-on: ubuntu-latest
     timeout-minutes: 10
