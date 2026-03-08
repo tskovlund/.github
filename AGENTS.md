@@ -9,11 +9,30 @@ Follow the code standards in [CONVENTIONS.md](CONVENTIONS.md).
 
 1. **Reusable workflows** (`.github/workflows/`) — Python CI, Nix flake check,
    CodeQL. Referenced by other repos via `uses: tskovlund/.github/.github/workflows/<name>@main`
-2. **CONVENTIONS.md** — de-personalized code standards for contributors
-3. **profile/README.md** — GitHub profile page
+2. **CONVENTIONS.md** — assembled conventions for GitHub org display
+3. **conventions/** — modular convention files for per-repo sync
+4. **profile/README.md** — GitHub profile page
+
+## conventions/ directory
+
+Canonical convention modules, synced to downstream repos by repo-file-sync-action.
+
+| File | Purpose |
+|------|---------|
+| `conventions/general.md` | General conventions (always included in every repo) |
+| `conventions/python.md` | Python-specific conventions |
+| `conventions/typescript.md` | TypeScript/JavaScript-specific conventions |
+| `conventions/hooks/commit-msg` | Universal commit-msg hook (synced verbatim) |
+
+**How sync works:** Downstream repos declare their language(s) in a
+`.conventions` marker file (e.g. `typescript`). The sync workflow assembles
+`general.md` + the matching language module(s) into each repo's CONVENTIONS.md.
+The `commit-msg` hook is synced to `.githooks/commit-msg` in every repo.
 
 ## Editing conventions
 
-CONVENTIONS.md is a de-personalized copy of the canonical standards manifest at
-`nix-config-personal/files/standards.md`. When standards change, update the
-canonical source first, then sync CONVENTIONS.md here.
+CONVENTIONS.md in the repo root is the fully assembled version (general +
+all language modules) for GitHub org display. Do not edit it directly.
+
+To change conventions, edit the source files in `conventions/`. The root
+CONVENTIONS.md and all downstream repos will be updated by the sync workflow.

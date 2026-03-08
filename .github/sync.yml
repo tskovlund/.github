@@ -1,0 +1,9 @@
+group:
+  - files:
+      - source: conventions/hooks/commit-msg
+        dest: .githooks/commit-msg
+    repos: |
+      tskovlund/nix-config
+      tskovlund/cambr
+      tskovlund/mcp-score
+      tskovlund/skovlund.dev

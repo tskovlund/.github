@@ -1,0 +1,116 @@
+name: Sync conventions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "conventions/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync-hooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: BetaHuhn/repo-file-sync-action@8b92be3375cf1d1b0cd579af488a9255572e4619 # v1.21.1
+        with:
+          GH_PAT: ${{ secrets.SYNC_PAT }}
+          COMMIT_PREFIX: "chore: "
+          PR_LABELS: sync
+          COMMIT_EACH_FILE: false
+
+  sync-conventions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        include:
+          - repo: tskovlund/nix-config
+            langs: ""
+          - repo: tskovlund/cambr
+            langs: python
+          - repo: tskovlund/mcp-score
+            langs: python
+          - repo: tskovlund/skovlund.dev
+            langs: typescript
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Assemble CONVENTIONS.md
+        run: |
+          cp conventions/general.md /tmp/CONVENTIONS.md
+
+          for lang in ${{ matrix.langs }}; do
+            if [ -f "conventions/${lang}.md" ]; then
+              echo "" >> /tmp/CONVENTIONS.md
+              cat "conventions/${lang}.md" >> /tmp/CONVENTIONS.md
+            fi
+          done
+
+      - name: Create or update sync PR
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_PAT }}
+        run: |
+          REPO="${{ matrix.repo }}"
+          BRANCH="chore/sync-conventions"
+
+          # Check if downstream CONVENTIONS.md differs
+          existing=$(gh api "repos/${REPO}/contents/CONVENTIONS.md" \
+            --jq '.content' 2>/dev/null | base64 -d || echo "")
+          assembled=$(cat /tmp/CONVENTIONS.md)
+
+          if [ "$existing" = "$assembled" ]; then
+            echo "CONVENTIONS.md is already up to date in ${REPO}"
+            exit 0
+          fi
+
+          # Check if sync branch already exists
+          if gh api "repos/${REPO}/git/ref/heads/${BRANCH}" >/dev/null 2>&1; then
+            # Update existing branch
+            main_sha=$(gh api "repos/${REPO}/git/ref/heads/main" --jq '.object.sha')
+            gh api "repos/${REPO}/git/refs/heads/${BRANCH}" \
+              -X PATCH -f sha="$main_sha" -F force=true
+          else
+            # Create branch from main
+            main_sha=$(gh api "repos/${REPO}/git/ref/heads/main" --jq '.object.sha')
+            gh api "repos/${REPO}/git/refs" \
+              -f ref="refs/heads/${BRANCH}" -f sha="$main_sha"
+          fi
+
+          # Create blob and tree
+          blob_sha=$(gh api "repos/${REPO}/git/blobs" \
+            -f content="$(cat /tmp/CONVENTIONS.md)" -f encoding="utf-8" \
+            --jq '.sha')
+
+          base_tree=$(gh api "repos/${REPO}/git/commits/${main_sha}" --jq '.tree.sha')
+          tree_sha=$(gh api "repos/${REPO}/git/trees" \
+            -f "base_tree=${base_tree}" \
+            -f "tree[][path]=CONVENTIONS.md" \
+            -f "tree[][mode]=100644" \
+            -f "tree[][type]=blob" \
+            -f "tree[][sha]=${blob_sha}" \
+            --jq '.sha')
+
+          # Create commit
+          commit_sha=$(gh api "repos/${REPO}/git/commits" \
+            -f message="chore: sync CONVENTIONS.md from dot-github" \
+            -f "tree=${tree_sha}" \
+            -f "parents[]=${main_sha}" \
+            --jq '.sha')
+
+          # Update branch ref
+          gh api "repos/${REPO}/git/refs/heads/${BRANCH}" \
+            -X PATCH -f sha="$commit_sha"
+
+          # Create PR if one doesn't exist
+          existing_pr=$(gh pr list --repo "$REPO" --head "$BRANCH" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -z "$existing_pr" ]; then
+            gh pr create --repo "$REPO" \
+              --head "$BRANCH" \
+              --title "chore: sync CONVENTIONS.md from dot-github" \
+              --body "Automated sync of CONVENTIONS.md from [tskovlund/.github](https://github.com/tskovlund/.github/tree/main/conventions)."
+          fi

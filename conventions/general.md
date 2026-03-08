@@ -1,9 +1,6 @@
 # Code Conventions
 
-Shared conventions for all tskovlund repositories. The canonical source is
-[`conventions/`](conventions/) in this repo. This file is assembled from
-`conventions/general.md` + all language modules for display. Edit the source
-files in `conventions/`, not this file directly.
+Shared conventions for all tskovlund repositories.
 
 ## Code Quality
 
@@ -172,20 +169,4 @@ files in `conventions/`, not this file directly.
   of these conventions in its own docs. Redundancy across repos is intentional
   so that every contributor picks them up
 
-## TypeScript / JavaScript
-
-- **Strict typescript-eslint** — `tseslint.configs.strict` as baseline
-- **Explicit return types** — `explicit-function-return-type` and
-  `explicit-module-boundary-types` on all `.ts` files
-- **Naming convention** — enforced via `@typescript-eslint/naming-convention`:
-  `camelCase` variables/functions, `PascalCase` types, `UPPER_CASE` constants
-- **Import sorting** — `@ianvs/prettier-plugin-sort-imports` in Prettier
-- **Prettier** for formatting — with `eslint-config-prettier` to avoid
-  conflicts
-
-## Python
-
-- **src layout** — all package code under `src/<package>/`
-- **Pyright strict mode** — all function signatures fully typed
-- **Ruff** for linting and formatting (line length 88)
-- **`__all__` in every module** — explicitly declare the public API
+<!-- Language-specific conventions are appended per-repo by the sync workflow -->
