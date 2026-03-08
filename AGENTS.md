@@ -20,6 +20,7 @@ Canonical convention modules, synced to downstream repos by repo-file-sync-actio
 | File | Purpose |
 |------|---------|
 | `conventions/general.md` | General conventions (always included in every repo) |
+| `conventions/lean.md` | Lean 4-specific conventions |
 | `conventions/python.md` | Python-specific conventions |
 | `conventions/typescript.md` | TypeScript/JavaScript-specific conventions |
 | `conventions/hooks/commit-msg` | Universal commit-msg hook (synced verbatim) |
