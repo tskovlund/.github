@@ -58,12 +58,13 @@ jobs:
           REPO="${{ matrix.repo }}"
           BRANCH="chore/sync-conventions"
 
-          # Check if downstream CONVENTIONS.md differs
-          existing=$(gh api "repos/${REPO}/contents/CONVENTIONS.md" \
-            --jq '.content' 2>/dev/null | base64 -d || echo "")
-          assembled=$(cat /tmp/CONVENTIONS.md)
+          # Check if downstream CONVENTIONS.md differs (compare checksums to
+          # avoid bash command substitution stripping trailing newlines)
+          existing_sha=$(gh api "repos/${REPO}/contents/CONVENTIONS.md" \
+            --jq '.sha' 2>/dev/null || echo "")
+          assembled_sha=$(git hash-object /tmp/CONVENTIONS.md)
 
-          if [ "$existing" = "$assembled" ]; then
+          if [ "$existing_sha" = "$assembled_sha" ]; then
             echo "CONVENTIONS.md is already up to date in ${REPO}"
             exit 0
           fi
@@ -82,9 +83,10 @@ jobs:
           fi
 
           # Create blob and tree
-          blob_sha=$(gh api "repos/${REPO}/git/blobs" \
-            -f content="$(cat /tmp/CONVENTIONS.md)" -f encoding="utf-8" \
-            --jq '.sha')
+          # Use jq to build the JSON payload from the file directly —
+          # $(cat ...) would strip the trailing newline.
+          blob_sha=$(jq -Rs '{content: ., encoding: "utf-8"}' /tmp/CONVENTIONS.md \
+            | gh api "repos/${REPO}/git/blobs" --input - --jq '.sha')
 
           base_tree=$(gh api "repos/${REPO}/git/commits/${main_sha}" --jq '.tree.sha')
           tree_sha=$(gh api "repos/${REPO}/git/trees" \
