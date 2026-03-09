@@ -19,7 +19,7 @@ echo "$header" > CONVENTIONS.md
 tail -n +4 conventions/general.md >> CONVENTIONS.md
 
 # Append each language module in alphabetical order
-for module in conventions/lean.md conventions/python.md conventions/typescript.md; do
+for module in conventions/lean.md conventions/python.md conventions/qed.md conventions/typescript.md; do
   if [ -f "$module" ]; then
     echo "" >> CONVENTIONS.md
     cat "$module" >> CONVENTIONS.md
