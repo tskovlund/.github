@@ -100,34 +100,10 @@ jobs:
 | ---------- | -------- | --------------------------------------------------------- |
 | `language` | yes      | CodeQL language (`python`, `javascript-typescript`, etc.) |
 
-## Markdown check
-
-Check markdown formatting with Prettier.
-
-```yaml
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-
-jobs:
-  markdown:
-    uses: tskovlund/.github/.github/workflows/markdown-check.yml@main
-```
-
-**Inputs:**
-
-| Input              | Default | Description      |
-| ------------------ | ------- | ---------------- |
-| `prettier-version` | `"3"`   | Prettier version |
-
-**Steps:** checkout, `npx prettier --check "**/*.md"`.
-
 ## Notes
 
 - All workflows use SHA-pinned third-party actions for supply chain security
 - Permissions are explicitly declared at the workflow level
 - Each workflow has a 10-minute timeout
 - Reference with `@main` from tskovlund repos (trusted, auto-propagating)
+- **Markdown formatting** is checked in every reusable workflow (`npx prettier@3 --check "**/*.md"`). Consuming repos get this automatically — no separate workflow call needed
