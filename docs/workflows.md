@@ -26,10 +26,10 @@ jobs:
 
 **Inputs:**
 
-| Input | Default | Description |
-|-------|---------|-------------|
-| `python-version` | `"3.13"` | Python version |
-| `src-dir` | `src/` | Directory for pyright |
+| Input            | Default  | Description           |
+| ---------------- | -------- | --------------------- |
+| `python-version` | `"3.13"` | Python version        |
+| `src-dir`        | `src/`   | Directory for pyright |
 
 **Steps:** checkout, setup uv (cached), setup Python, `uv sync`, `ruff check`,
 `ruff format --check`, `pyright`, `pytest`.
@@ -60,8 +60,8 @@ jobs:
 
 **Inputs:**
 
-| Input | Default | Description |
-|-------|---------|-------------|
+| Input       | Default               | Description                    |
+| ----------- | --------------------- | ------------------------------ |
 | `platforms` | `'["ubuntu-latest"]'` | JSON array of runner OS values |
 
 **Steps:** checkout, install Nix (Determinate), magic Nix cache, flake checker,
@@ -96,9 +96,9 @@ jobs:
 
 **Inputs:**
 
-| Input | Required | Description |
-|-------|----------|-------------|
-| `language` | yes | CodeQL language (`python`, `javascript-typescript`, etc.) |
+| Input      | Required | Description                                               |
+| ---------- | -------- | --------------------------------------------------------- |
+| `language` | yes      | CodeQL language (`python`, `javascript-typescript`, etc.) |
 
 ## Markdown check
 
@@ -119,9 +119,9 @@ jobs:
 
 **Inputs:**
 
-| Input              | Default | Description        |
-| ------------------ | ------- | ------------------ |
-| `prettier-version` | `"3"`   | Prettier version   |
+| Input              | Default | Description      |
+| ------------------ | ------- | ---------------- |
+| `prettier-version` | `"3"`   | Prettier version |
 
 **Steps:** checkout, `npx prettier --check "**/*.md"`.
 

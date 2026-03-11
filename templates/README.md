@@ -13,6 +13,7 @@
 <!-- Key highlights — keep it scannable -->
 
 <!-- For repos with docs/: -->
+
 ## Documentation
 
 <!-- Link to docs/ files. Example: -->

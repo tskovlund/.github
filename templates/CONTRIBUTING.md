@@ -60,6 +60,7 @@ A prompt request PR should include:
 - **Examples** — input/output examples or before/after descriptions where helpful
 
 <!-- Add a label name appropriate for your repo, e.g. `prompt-request` -->
+
 Label prompt request PRs with `prompt-request`. A maintainer or AI agent will
 pick them up, implement the changes, and push commits to the PR branch. The
 normal review process applies after implementation.

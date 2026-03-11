@@ -14,6 +14,7 @@ Instead, use one of these methods:
 2. **Email** — [thomas@skovlund.dev](mailto:thomas@skovlund.dev)
 
 Include:
+
 - Description of the vulnerability
 - Steps to reproduce
 - Affected versions (if known)

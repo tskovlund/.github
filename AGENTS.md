@@ -17,14 +17,14 @@ Follow the code standards in [CONVENTIONS.md](CONVENTIONS.md).
 
 Canonical convention modules, synced to downstream repos by repo-file-sync-action.
 
-| File | Purpose |
-|------|---------|
-| `conventions/general.md` | General conventions (always included in every repo) |
-| `conventions/lean.md` | Lean 4-specific conventions (language, naming, proof style) |
-| `conventions/python.md` | Python-specific conventions |
-| `conventions/qed.md` | qed spec framework conventions (spec design, criteria, format) |
-| `conventions/typescript.md` | TypeScript/JavaScript-specific conventions |
-| `conventions/hooks/commit-msg` | Universal commit-msg hook (synced verbatim) |
+| File                           | Purpose                                                        |
+| ------------------------------ | -------------------------------------------------------------- |
+| `conventions/general.md`       | General conventions (always included in every repo)            |
+| `conventions/lean.md`          | Lean 4-specific conventions (language, naming, proof style)    |
+| `conventions/python.md`        | Python-specific conventions                                    |
+| `conventions/qed.md`           | qed spec framework conventions (spec design, criteria, format) |
+| `conventions/typescript.md`    | TypeScript/JavaScript-specific conventions                     |
+| `conventions/hooks/commit-msg` | Universal commit-msg hook (synced verbatim)                    |
 
 **How sync works:** Downstream repos declare their language(s) in a
 `.conventions` marker file (e.g. `typescript`). The sync workflow assembles
