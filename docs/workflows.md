@@ -106,4 +106,4 @@ jobs:
 - Permissions are explicitly declared at the workflow level
 - Each workflow has a 10-minute timeout
 - Reference with `@main` from tskovlund repos (trusted, auto-propagating)
-- **Markdown formatting** is checked in every reusable workflow (`npx prettier@3 --check "**/*.md"`). Consuming repos get this automatically — no separate workflow call needed
+- **Formatting** is checked in every reusable workflow (`npx prettier@3 --check .`). Covers markdown, JSON, YAML, and other supported file types. Consuming repos get this automatically — no separate workflow call needed. Add a `.prettierignore` for build artifacts and vendored directories
