@@ -22,7 +22,7 @@ Include:
 
 ## Response
 
-I aim to acknowledge reports within 48 hours and provide a fix or mitigation
+I aim to acknowledge reports within 72 hours and provide a fix or mitigation
 plan within 7 days. Critical vulnerabilities will be prioritized.
 
 ## Scope

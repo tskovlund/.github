@@ -140,7 +140,9 @@ Shared conventions for all tskovlund repositories.
 
 - **Conventional commits** — `feat:`, `fix:`, `refactor:`, `docs:`, `test:`,
   `chore:`
-- **Direct to main** for small changes, **branch + PR** for structural work
+- **Direct to main** for small changes, **branch + PR** for structural work.
+  Product repos with external users (e.g. kammer) may enforce PR-only with
+  required checks via a ruleset — the strictness is per-repo, deliberate
 - **PR review loop** before merge on structural changes
 
 ## Documentation
