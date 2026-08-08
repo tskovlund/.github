@@ -7,6 +7,7 @@ group:
       tskovlund/nix-config-personal
       tskovlund/eliza-config
       tskovlund/cambr
+      tskovlund/cambr-strategies
       tskovlund/mcp-score
       tskovlund/skovlund.dev
       tskovlund/qed

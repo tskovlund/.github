@@ -59,6 +59,8 @@ jobs:
             langs: ""
           - repo: tskovlund/cambr
             langs: python
+          - repo: tskovlund/cambr-strategies
+            langs: python
           - repo: tskovlund/mcp-score
             langs: python
           - repo: tskovlund/skovlund.dev
