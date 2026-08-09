@@ -15,26 +15,29 @@ Follow the code standards in [CONVENTIONS.md](CONVENTIONS.md).
 
 ## conventions/ directory
 
-Canonical convention modules, synced to downstream repos by repo-file-sync-action.
-
 | File                           | Purpose                                                        |
 | ------------------------------ | -------------------------------------------------------------- |
 | `conventions/general.md`       | General conventions (always included in every repo)            |
+| `conventions/elixir.md`        | Elixir-specific conventions                                    |
 | `conventions/lean.md`          | Lean 4-specific conventions (language, naming, proof style)    |
 | `conventions/python.md`        | Python-specific conventions                                    |
 | `conventions/qed.md`           | qed spec framework conventions (spec design, criteria, format) |
 | `conventions/typescript.md`    | TypeScript/JavaScript-specific conventions                     |
 | `conventions/hooks/commit-msg` | Universal commit-msg hook (synced verbatim)                    |
 
-**How sync works:** Downstream repos declare their language(s) in a
-`.conventions` marker file (e.g. `typescript`). The sync workflow assembles
-`general.md` + the matching language module(s) into each repo's CONVENTIONS.md.
-The `commit-msg` hook is synced to `.githooks/commit-msg` in every repo.
+## How sync works
+
+`.github/workflows/sync-conventions.yml` holds a **hardcoded matrix** mapping
+each downstream repo to its language modules. Adding a repo, or changing which
+modules it gets, means editing that matrix — there is no marker file in the
+downstream repo. The workflow assembles `general.md` + the listed modules and
+opens a `chore/sync-conventions` PR on each repo.
+
+The `commit-msg` hook is synced separately by repo-file-sync-action; its repo
+list lives in `.github/sync.yml` and must be kept in step with the matrix.
 
 ## Editing conventions
 
-CONVENTIONS.md in the repo root is the fully assembled version (general +
-all language modules) for GitHub org display. Do not edit it directly.
-
-To change conventions, edit the source files in `conventions/`. The root
-CONVENTIONS.md and all downstream repos will be updated by the sync workflow.
+Edit the source files in `conventions/`. The root CONVENTIONS.md is assembled
+by `scripts/assemble-conventions.sh` (general + all language modules, and new
+modules must be added to its list) — never edit it directly.

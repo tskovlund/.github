@@ -5,7 +5,7 @@ group:
     repos: |
       tskovlund/nix-config
       tskovlund/nix-config-personal
-      tskovlund/eliza-config
+      tskovlund/kammer
       tskovlund/cambr
       tskovlund/cambr-strategies
       tskovlund/mcp-score
