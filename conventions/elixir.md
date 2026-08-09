@@ -18,3 +18,13 @@
   rigor (permissions, visibility rules)
 - **Security scanning is Sobelow + `mix hex.audit` + `mix deps.audit`** in
   CI — CodeQL has no Elixir support
+- **No `Process.sleep/1` or `Process.alive?/1` in tests** — they are the
+  primary flakiness source. Wait for a process with `Process.monitor/1` +
+  `assert_receive {:DOWN, ...}`; synchronize with `_ = :sys.get_state(pid)`;
+  start test processes with `start_supervised!/1` so cleanup is guaranteed
+- **Ecto discipline** — preload every association a serializer or template
+  touches; read changeset fields with `Ecto.Changeset.get_field/2`, never
+  map access; programmatically-set fields (e.g. `user_id`) are set
+  explicitly, never listed in `cast` (mass-assignment risk); note
+  `validate_number/2` has no `:allow_nil` option — validations already skip
+  nil changes
