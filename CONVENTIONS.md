@@ -143,7 +143,9 @@ files in `conventions/`, not this file directly.
 
 - **Conventional commits** — `feat:`, `fix:`, `refactor:`, `docs:`, `test:`,
   `chore:`
-- **Direct to main** for small changes, **branch + PR** for structural work
+- **Direct to main** for small changes, **branch + PR** for structural work.
+  Product repos with external users (e.g. kammer) may enforce PR-only with
+  required checks via a ruleset — the strictness is per-repo, deliberate
 - **PR review loop** before merge on structural changes
 
 ## Documentation
@@ -166,7 +168,9 @@ files in `conventions/`, not this file directly.
 - **Follow established conventions per language/framework** — `src/` layout in
   Python, standard framework structures elsewhere
 - **AGENTS.md in every repo** with a CLAUDE.md symlink — the canonical file for
-  AI agent instructions
+  AI agent instructions. Repos are de-personalized factsheets by default;
+  kammer's AGENTS.md is intentionally exempt — it is an owner-specific
+  operations manual for autonomous agent work, and stays that way
 - **Shared CI via `tskovlund/.github`** — reusable workflows for common
   patterns. Repos reference shared workflows instead of duplicating CI
   configuration
@@ -177,6 +181,37 @@ files in `conventions/`, not this file directly.
   so that every contributor picks them up
 
 <!-- Language-specific conventions are appended per-repo by the sync workflow -->
+
+## Elixir
+
+- **ExUnit idiom over the generic test template** — `describe` blocks with
+  sentence-style `test "..."` names replace `test_action_expected_outcome`
+  naming, and Arrange/Act/Assert comments are omitted: well-factored ExUnit
+  tests read as specifications. This is the "cased per language convention"
+  rule applied to Elixir
+- **The full gate is `mix format`, Credo strict, Dialyzer, Sobelow,
+  warnings-as-errors, and the test suite** — run via `mix precommit` (or
+  `make check`), identically local and in CI
+- **`@moduledoc`, `@doc`, and `@spec` on every public module and function**
+- **One authorization boundary** — permission and visibility decisions live
+  in a single module; no inline permission checks in templates, LiveViews,
+  or controllers
+- **Contexts own the writes** — the web layer calls context functions; Ecto
+  queries do not leak into LiveViews or controllers
+- **Property-based tests (StreamData)** for invariants that deserve the
+  rigor (permissions, visibility rules)
+- **Security scanning is Sobelow + `mix hex.audit` + `mix deps.audit`** in
+  CI — CodeQL has no Elixir support
+- **No `Process.sleep/1` or `Process.alive?/1` in tests** — they are the
+  primary flakiness source. Wait for a process with `Process.monitor/1` +
+  `assert_receive {:DOWN, ...}`; synchronize with `_ = :sys.get_state(pid)`;
+  start test processes with `start_supervised!/1` so cleanup is guaranteed
+- **Ecto discipline** — preload every association a serializer or template
+  touches; read changeset fields with `Ecto.Changeset.get_field/2`, never
+  map access; programmatically-set fields (e.g. `user_id`) are set
+  explicitly, never listed in `cast` (mass-assignment risk); note
+  `validate_number/2` has no `:allow_nil` option — validations already skip
+  nil changes
 
 ## Lean 4
 
