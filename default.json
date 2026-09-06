@@ -8,8 +8,13 @@
   "prConcurrentLimit": 10,
   "semanticCommits": "enabled",
   "configMigration": true,
-  "nix": { "enabled": true },
-  "lockFileMaintenance": { "enabled": true, "automerge": true },
+  "nix": {
+    "enabled": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
   "packageRules": [
     {
       "description": "Auto-merge non-major updates once checks pass; majors wait for a human",
@@ -20,7 +25,14 @@
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions",
       "semanticCommitType": "ci"
+    },
+    {
+      "description": "Interpreter bumps in .python-version must be paired with pyproject, flake and CI changes, so never auto-merge them",
+      "matchManagers": ["pyenv"],
+      "automerge": false
     }
   ],
-  "vulnerabilityAlerts": { "labels": ["security"] }
+  "vulnerabilityAlerts": {
+    "labels": ["security"]
+  }
 }
