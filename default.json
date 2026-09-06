@@ -1,17 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Shared Renovate policy for all tskovlund repositories — extend with \"github>tskovlund/.github\"",
-  "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigests"
-  ],
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "timezone": "Europe/Copenhagen",
-  "schedule": [
-    "before 7am on monday"
-  ],
-  "labels": [
-    "dependencies"
-  ],
+  "schedule": ["before 7am on monday"],
+  "labels": ["dependencies"],
   "prConcurrentLimit": 10,
   "semanticCommits": "enabled",
   "configMigration": true,
@@ -25,32 +18,21 @@
   "packageRules": [
     {
       "description": "Auto-merge non-major updates once checks pass; majors wait for a human",
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
-      ],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
     },
     {
-      "matchManagers": [
-        "github-actions"
-      ],
+      "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions",
       "semanticCommitType": "ci"
     },
     {
       "description": "Interpreter bumps in .python-version must be paired with pyproject, flake and CI changes, so never auto-merge them",
-      "matchManagers": [
-        "pyenv"
-      ],
+      "matchManagers": ["pyenv"],
       "automerge": false
     }
   ],
   "vulnerabilityAlerts": {
-    "labels": [
-      "security"
-    ]
+    "labels": ["security"]
   }
 }
